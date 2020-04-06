@@ -4,15 +4,14 @@ class SearchController < ApplicationController
 
   def search
     redis = Redis.new
-    count = redis.incr("count")
     time = DateTime.now.strftime("%Q")
     ip = request.ip
     redis.set(
       "ip:#{ip}:#{time}",
       {
         term: params[:term],
+        submit: params[:submit],
         ip: ip,
-        article_count: 0,
         sought_at: time,
       }.to_json
     )
@@ -20,5 +19,6 @@ class SearchController < ApplicationController
   end
 
   def statistics
+    SearchWorker.new.perform_async
   end
 end
