@@ -1,0 +1,6 @@
+
+<%= form_with url: search_url, method: :get, class: 'search_form' do %>
+  <%= label_tag :term, "Search:" %>
+  <%= text_field_tag :term %>
+  <%= submit_tag "Search" %>
+<% end %>
