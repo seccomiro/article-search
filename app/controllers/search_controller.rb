@@ -5,16 +5,18 @@ class SearchController < ApplicationController
   def search
     redis = Redis.new
     count = redis.incr("count")
+    time = DateTime.now.strftime("%Q")
+    ip = request.ip
     redis.set(
-      count,
+      "ip:#{ip}:#{time}",
       {
         term: params[:term],
-        ip: request.ip,
+        ip: ip,
         article_count: 0,
-        sought_at: DateTime.now.strftime("%Q"),
+        sought_at: time,
       }.to_json
     )
-    render json: { sucess: true, count: count }
+    render json: { sucess: true }
   end
 
   def statistics
