@@ -19,6 +19,6 @@ class SearchController < ApplicationController
   end
 
   def statistics
-    SearchWorker.new.perform_async
+    SearchWorker.perform_async
   end
 end

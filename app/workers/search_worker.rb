@@ -1,9 +1,11 @@
 class SearchWorker
+  # require 'sidekiq-scheduler'
   include Sidekiq::Worker
 
   def perform
     redis = Redis.new
     keys = redis.scan_each(match: "ip:*").to_a.sort
+    return if keys.none?
     searches = organize(keys)
 
     searches.each do |ip, searches|
