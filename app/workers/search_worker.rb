@@ -11,15 +11,26 @@ class SearchWorker
       if last.ip == current.ip
         diff = current.sought_at - last.sought_at
         if diff > 3000
-          # Final search detected
-          # Save current to DB
+          save_search current.term
           last = {}
         end
       else
-        # IP change detected
-        # Save last to DB
+        save_search last.term
         last = current
       end
     end
+  end
+
+  private
+
+  def save_search(term)
+    search = Search.find_by_term(term)
+    if search
+      search.count += 1
+      search.save
+    else
+      search = Search.create(term: term, count: 1)
+    end
+    search
   end
 end
