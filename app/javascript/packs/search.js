@@ -2,8 +2,7 @@ const _ = require('underscore');
 const axios = require('axios');
 
 const debounceSearch = _.debounce(async (term, baseUrl, submit) => {
-  const url = `${baseUrl}/${term}`;
-  const response = await axios.get(url, { params: { submit } });
+  const response = await axios.get(baseUrl, { params: { submit, term } });
   console.log(response.data);
 }, 500);
 
@@ -12,7 +11,6 @@ window.onload = (e) => {
   const field = document.querySelector('#term');
   if (!form) return;
   const baseUrl = form.getAttribute('action');
-  console.log(baseUrl);
 
   const search = (term, submit = false) => {
     debounceSearch(term, baseUrl, submit);

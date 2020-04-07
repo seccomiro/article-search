@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'search', to: 'search#index'
+  root to: 'search#index'
+  get 'search', to: 'search#search'
   get 'search/statistics', to: 'search#statistics'
-  get 'search/:term', to: 'search#search'
 end
