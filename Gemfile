@@ -57,3 +57,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'redis'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'font-awesome-sass', '~> 5.12.0'
+gem 'simple_form'
