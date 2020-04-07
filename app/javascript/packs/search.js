@@ -2,7 +2,10 @@ const _ = require('underscore');
 const axios = require('axios');
 
 const debounceSearch = _.debounce(async (term, baseUrl, submit) => {
-  const response = await axios.get(baseUrl, { params: { submit, term } });
+  const response = await axios.get(baseUrl, {
+    params: { submit, term },
+    headers: { Accept: 'application/json' },
+  });
   console.log(response.data);
 }, 500);
 

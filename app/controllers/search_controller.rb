@@ -3,6 +3,8 @@ class SearchController < ApplicationController
   end
 
   def search
+    @articles = Article.where("title LIKE ?", "%#{params[:term]}%")
+
     redis = Redis.new
     time = DateTime.now.strftime("%Q")
     ip = request.ip
@@ -15,7 +17,10 @@ class SearchController < ApplicationController
         sought_at: time,
       }.to_json
     )
-    render json: { sucess: true }
+
+    respond_to do |format|
+      format.json { render json: @articles, :only => [:id, :title] }
+    end
   end
 
   def statistics
