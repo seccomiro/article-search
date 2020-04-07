@@ -18,10 +18,10 @@ The app aims performance and organization, so the searches are asynchronously in
 
 - **Ruby 2.7.0**
 - **Ruby on Rails 6**
+- **PostgreSQL**: Because we are going to deploy on Heroku.
 - **Sidekiq**: Used to asynchronously run search indexing as background tasks.
 - **sidekiq-scheduler**: Used to schedule background tasks runs every minute (this interval can be changed).
 - **Redis**: All the searches made by users are stored in Redis, so it is used as a queue of search terms to be posteriorly processed at a background task.
-- **SQLite3**: For simplicity, this app is using SQLite.
 - **Other**: Webpacker, Bootstrap, FontAwesome, simple_form, faker, axios and Underscore.js.
 
 ## Installing and running
@@ -46,10 +46,10 @@ Uptade the gems:
 bundle install
 ```
 
-Run migrations (SQLite):
+Run migrations (PostgreSQL):
 
 ```bash
-rails db:create
+# Your PostgreSQL database must exist
 rails db:migrate
 ```
 
