@@ -6,8 +6,32 @@ const debounceSearch = _.debounce(async (term, baseUrl, submit) => {
     params: { submit, term },
     headers: { Accept: 'application/json' },
   });
-  console.log(response.data);
+  printSearchResult(response.data);
 }, 500);
+
+const printSearchResult = (result) => {
+  const resultDiv = document.querySelector('.search_result');
+  if (result.length > 0) {
+    resultDiv.innerHTML = `
+      <div class="table-responsive mt-5">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${result
+              .map((article) => `<tr><td>${article.title}</td></tr>`)
+              .join(' ')}
+          </tbody>
+        </table>
+      </div>`;
+  } else {
+    resultDiv.innerHTML = `
+      <div class="alert alert-info mt-5">Sorry! We couldn't find any result for your search.</div>`;
+  }
+};
 
 window.onload = (e) => {
   const form = document.querySelector('.search_form');

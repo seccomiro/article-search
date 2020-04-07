@@ -3,6 +3,8 @@
 </div>
 
 <%= form_with url: search_url, method: :get, class: 'search_form form-inline row' do %>
-  <%= text_field_tag :term, nil, class: 'form-control mr-sm-2 col', placeholder: 'Search' %>
+  <%= text_field_tag :term, nil, class: 'form-control mr-sm-2 col', placeholder: 'Search', autocomplete: "off" %>
   <%= submit_tag 'Search', class: 'btn btn-outline-success' %>
 <% end %>
+
+<div class="search_result"></div>
