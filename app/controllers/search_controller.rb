@@ -27,4 +27,9 @@ class SearchController < ApplicationController
   def statistics
     @searches = Search.order(count: :desc)
   end
+
+  def clear_statistics
+    Search.destroy_all
+    redirect_to search_statistics_url, notice: 'All statistics were deleted.'
+  end
 end
