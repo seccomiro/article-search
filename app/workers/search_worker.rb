@@ -56,7 +56,12 @@ class SearchWorker
       search.zero_article_count += 1 if article_count == 0
       search.save
     else
-      search = Search.create(term: term, count: 1)
+      search = Search.create(
+        term: term,
+        count: 1,
+        article_count: article_count,
+        zero_article_count: (article_count == 0 ? 1 : 0)
+      )
     end
     search
   end

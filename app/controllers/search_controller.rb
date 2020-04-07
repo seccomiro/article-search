@@ -15,6 +15,7 @@ class SearchController < ApplicationController
         submit: params[:submit],
         ip: ip,
         sought_at: time,
+        article_count: @articles.count
       }.to_json
     )
 
@@ -24,6 +25,6 @@ class SearchController < ApplicationController
   end
 
   def statistics
-    SearchWorker.perform_async
+    @searches = Search.order(count: :desc)
   end
 end
