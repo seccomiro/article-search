@@ -33,7 +33,7 @@ const printSearchResult = (result) => {
   }
 };
 
-window.onload = (e) => {
+document.addEventListener('turbolinks:load', () => {
   const form = document.querySelector('.search_form');
   const field = document.querySelector('#term');
   if (!form) return;
@@ -45,6 +45,8 @@ window.onload = (e) => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    console.log(field.value);
+
     search(field.value, true);
   });
 
@@ -60,4 +62,4 @@ window.onload = (e) => {
       search(field.value);
     }
   });
-};
+});
