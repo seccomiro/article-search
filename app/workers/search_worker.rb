@@ -2,8 +2,8 @@ class SearchWorker
   include Sidekiq::Worker
 
   def perform
-    puts 'Starting search indexing...'
-    redis = Redis.new
+    puts "Starting search indexing..."
+    redis = Redis.new(url: ENV["REDISTOGO_URL"])
     keys = redis.scan_each(match: "ip:*").to_a.sort
     return if keys.none?
     searches = organize(keys)
@@ -38,7 +38,7 @@ class SearchWorker
   private
 
   def organize(keys)
-    redis = Redis.new
+    redis = Redis.new(url: ENV["REDISTOGO_URL"])
     searches = {}
     keys.each do |k|
       ip = k.split(":")[1]
@@ -60,7 +60,7 @@ class SearchWorker
         term: term,
         count: 1,
         article_count: article_count,
-        zero_article_count: (article_count == 0 ? 1 : 0)
+        zero_article_count: (article_count == 0 ? 1 : 0),
       )
     end
     search
