@@ -2,3 +2,6 @@
   search_statistics_job:
     cron: '0 * * * * *'   # Runs once per minute
     class: SearchWorker
+:concurrency: 5
+production:
+  :concurrency: 5

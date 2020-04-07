@@ -6,7 +6,7 @@ class SearchController < ApplicationController
     term = params[:term].strip
     @articles = Article.where("lower(title) LIKE ?", "%#{term.downcase}%")
 
-    redis = Redis.new(url: ENV["REDISTOGO_URL"])
+    redis = Redis.new(url: ENV["REDIS_URL"])
     time = DateTime.now.strftime("%Q")
     ip = request.ip
     redis.set(

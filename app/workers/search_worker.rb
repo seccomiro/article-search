@@ -4,7 +4,7 @@ class SearchWorker
   def perform
     redis = get_redis_instance
     puts "Starting search indexing..."
-    redis = Redis.new(url: ENV["REDISTOGO_URL"])
+    redis = Redis.new(url: ENV["REDIS_URL"])
     keys = redis.scan_each(match: "ip:*").to_a.sort
     if keys.none?
       redis.close
@@ -43,7 +43,7 @@ class SearchWorker
   private
 
   def get_redis_instance
-    @redis = Redis.new(url: ENV["REDISTOGO_URL"]) unless @redis
+    @redis = Redis.new(url: ENV["REDIS_URL"]) unless @redis
     @redis
   end
 
