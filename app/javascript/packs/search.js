@@ -17,7 +17,7 @@ const printSearchResult = (result) => {
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Title</th>
+              <th class="text-center">Articles</th>
             </tr>
           </thead>
           <tbody>
