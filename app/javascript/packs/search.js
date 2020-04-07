@@ -45,8 +45,6 @@ document.addEventListener('turbolinks:load', () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(field.value);
-
     search(field.value, true);
   });
 

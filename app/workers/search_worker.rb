@@ -15,7 +15,7 @@ class SearchWorker
       end
       searches[0..-2].each_with_index do |s, i|
         next_s = searches[i + 1]
-        submit = s["submit"]
+        submit = s["submit"] == "true"
         if submit
           save_search s["term"], s["article_count"]
           next
@@ -28,7 +28,7 @@ class SearchWorker
       end
       next_s = searches.last
       diff = next_s["sought_at"].to_i - searches[-2]["sought_at"].to_i
-      submit = next_s["submit"]
+      submit = next_s["submit"] == "true"
       save_search next_s["term"], next_s["article_count"] if submit || diff > 3000
     end
 
