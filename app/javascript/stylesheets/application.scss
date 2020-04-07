@@ -3,6 +3,10 @@
 // @import "font-awesome";
 @import './scaffold';
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin-bottom: 50px;
   margin-top: 80px;
