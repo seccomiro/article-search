@@ -3,7 +3,8 @@ class SearchController < ApplicationController
   end
 
   def search
-    @articles = Article.where("title LIKE ?", "%#{params[:term]}%")
+    term = params[:term].strip
+    @articles = Article.where("title LIKE ?", "%#{term}%")
 
     redis = Redis.new
     time = DateTime.now.strftime("%Q")
@@ -11,7 +12,7 @@ class SearchController < ApplicationController
     redis.set(
       "ip:#{ip}:#{time}",
       {
-        term: params[:term],
+        term: term,
         submit: params[:submit],
         ip: ip,
         sought_at: time,
