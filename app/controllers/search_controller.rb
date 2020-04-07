@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
   def search
     term = params[:term].strip
-    @articles = Article.where("title LIKE ?", "%#{term}%")
+    @articles = Article.where("lower(title) LIKE ?", "%#{term.downcase}%")
 
     redis = Redis.new(url: ENV["REDISTOGO_URL"])
     time = DateTime.now.strftime("%Q")
@@ -16,9 +16,10 @@ class SearchController < ApplicationController
         submit: params[:submit],
         ip: ip,
         sought_at: time,
-        article_count: @articles.count
+        article_count: @articles.count,
       }.to_json
     )
+    redis.close
 
     respond_to do |format|
       format.json { render json: @articles, :only => [:id, :title] }
@@ -31,6 +32,6 @@ class SearchController < ApplicationController
 
   def clear_statistics
     Search.destroy_all
-    redirect_to search_statistics_url, notice: 'All statistics were deleted.'
+    redirect_to search_statistics_url, notice: "All statistics were deleted."
   end
 end
