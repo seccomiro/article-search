@@ -32,6 +32,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.include Rails.application.routes.url_helpers
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -44,23 +45,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
   end
   
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
-  
-  config.after(:all) do
-    DatabaseCleaner.clean
-  end
-
-  config.before :all do
-    create(:article, { title: "How do I cancel my subscription?" })
-    create(:article, { title: "How do I cancel my account?" })
-    create(:article, { title: "Can I upgrade my account?" })
-    create(:article, { title: "Can you help me?" })
-    create(:article, { title: "I don't know how to enroll a new person." })
-    create(:article, { title: "Is it possible to generate new users?" })
-  end
-
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
