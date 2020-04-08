@@ -28,6 +28,10 @@ class SearchController < ApplicationController
 
   def statistics
     @searches = Search.order(count: :desc)
+    respond_to do |format|
+      format.json { render json: @searches, :only => [:id, :term, :count, :article_count, :zero_article_count] }
+      format.html
+    end
   end
 
   def clear_statistics
