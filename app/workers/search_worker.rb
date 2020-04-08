@@ -3,7 +3,7 @@ class SearchWorker
 
   def perform
     redis = get_redis_instance
-    puts "Starting search indexing..."
+
     redis = Redis.new(url: ENV["REDIS_URL"])
     keys = redis.scan_each(match: "ip:*").to_a.sort
     if keys.none?
@@ -33,7 +33,7 @@ class SearchWorker
       next_s = searches.last
       diff = next_s["sought_at"].to_i - searches[-2]["sought_at"].to_i
       submit = next_s["submit"] == "true"
-      save_search next_s["term"], next_s["article_count"] if submit || diff > 3000
+      save_search next_s["term"], next_s["article_count"] #if submit || diff > 3000
     end
 
     redis.del keys
