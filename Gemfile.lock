@@ -79,6 +79,9 @@ GEM
     database_cleaner-active_record (1.8.0)
       activerecord
       database_cleaner (~> 1.8.0)
+    database_cleaner-redis (1.8.0)
+      database_cleaner (~> 1.8.0)
+      redis
     debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.9)
@@ -186,9 +189,6 @@ GEM
       rspec-expectations (~> 3.9)
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
-    rspec-sidekiq (3.0.3)
-      rspec-core (~> 3.0, >= 3.0.0)
-      sidekiq (>= 2.4.0)
     rspec-support (3.9.2)
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
@@ -239,6 +239,7 @@ GEM
     thread_safe (0.3.6)
     thwait (0.1.0)
     tilt (2.0.10)
+    timecop (0.9.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -272,6 +273,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   database_cleaner-active_record
+  database_cleaner-redis
   debase
   factory_bot_rails
   faker
@@ -283,7 +285,6 @@ DEPENDENCIES
   rails (~> 6.0.2, >= 6.0.2.2)
   redis
   rspec-rails (~> 4.0.0)
-  rspec-sidekiq
   ruby-debug-ide
   sass-rails (>= 6)
   selenium-webdriver
@@ -292,6 +293,7 @@ DEPENDENCIES
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)
+  timecop
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)
